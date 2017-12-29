@@ -52,14 +52,9 @@ class Usuario {
 			":ID" => $id
 		));
 
-		if (isset($result[0])) {
+		if (isset($result)) {
 
-			$row = $result[0];
-
-			$this->setUser_id($row['user_id']);
-			$this->setDescription($row['description']);
-			$this->setPass($row['pass']);
-			$this->setDt_register(new DateTime($row['dt_register']));
+			$this->getData($result[0]);
 		}
 
 	}
@@ -73,6 +68,67 @@ class Usuario {
 			"dt_register" => $this->getDt_register()->format("d/m/y H:i:s")
 		));
 	}
+
+	public static function getList() {
+
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM usuarios");
+	}
+
+	public static function search($login) {
+
+		$sql = new Sql();
+
+		return $sql->select("SELECT * FROM usuarios WHERE description LIKE :LOGIN", array(
+			':LOGIN' => "%" .$login. "%"
+		));
+	}
+
+	public function login($login, $pass) {
+
+		$sql = new Sql();
+
+		$result = $sql->select("SELECT * FROM usuarios WHERE description = :DES AND pass = :PASS", array(
+			":DES" => $login,
+			":PASS" => $pass
+		));
+
+		if (count ($result) > 0) {
+
+			$this->getData($result[0]);
+		}
+		else {
+
+			throw new Exception ("Login ou senha inválidos!");
+		}
+	}
+
+	public function insert() {
+
+		$sql = new Sql();
+
+		$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASS)", array(
+			':LOGIN'=>$this->getDescription(),
+			':PASS'=>$this->getPass()
+		));
+
+		if (count($results) > 0) {
+
+			$this->getData($results[0]);
+		}
+	}
+
+	public function getData($data) {
+
+		$this->setUser_id($data['user_id']);
+		$this->setDescription($data['description']);
+		$this->setPass($data['pass']);
+		$this->setDt_register(new DateTime($data['dt_register']));
+
+	}
+
+
 }
 
 ?>

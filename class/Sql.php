@@ -4,7 +4,6 @@ class Sql extends PDO {
 
 	private $conn;
 
-
 	public function __construct() {
 
 		$this->conn = new PDO("mysql:host=127.0.0.1;dbname=test", "root", "");
@@ -14,7 +13,7 @@ class Sql extends PDO {
 
 		foreach ($parameters as $key => $value)  {
 
-			$statement->bindParam($key, $value);
+			$this->setParam($statement, $key, $value);
 		}
 
 	}
