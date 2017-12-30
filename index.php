@@ -28,17 +28,12 @@ $usuario->login("Natalia", "123");
 echo ($usuario);
 */
 
-/*
 // Insert de novo Usuario
-$aluno = new Usuario();
-
-$aluno->setDescription("Lonsd");
-$aluno->setPass("159753");
+$aluno = new Usuario("Oldtd", "753159");
 
 $aluno->insert();
 
 echo $aluno;
-*/
 
 
 ?>

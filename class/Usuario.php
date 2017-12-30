@@ -59,6 +59,13 @@ class Usuario {
 
 	}
 
+	// Para não tornar Login e Senha obrigatórios
+	public function __construct($login = "", $pass = "") {
+
+		$this->setDescription($login);
+		$this->setPass($pass);
+	}
+
 	public function __toString() {
 
 		return json_encode(array(
