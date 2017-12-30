@@ -35,10 +35,19 @@ $aluno->insert();
 echo $aluno;
 */
 
+/*
 // Faz a alteração do login e senha na tabela usuário
 $usuario = new Usuario();
 $usuario->loadById(38);
 $usuario->update("Lodtt", "654987");
 echo $usuario;
+*/
+
+// Deleta um usuário da tabela usuarios
+$usuario = new Usuario();
+$usuario->loadById(37);
+$usuario->delete();
+echo $usuario;
+
 
 ?>

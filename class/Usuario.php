@@ -149,6 +149,20 @@ class Usuario {
 		));
 	}
 
+	public function delete() {
+
+		$sql = new Sql();
+		$sql->query("DELETE FROM usuarios WHERE user_id = :ID", array(
+			":ID" => $this->getUser_id()
+		));
+
+		$this->setUser_id(0);
+		$this->setDescription("");
+		$this->setPass("");
+		$this->setDt_register(new DateTime());
+	}
+
+
 
 }
 
