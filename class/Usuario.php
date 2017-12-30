@@ -135,6 +135,20 @@ class Usuario {
 
 	}
 
+	public function update($login, $pass) {
+
+		$this->setDescription($login);
+		$this->setPass($pass);
+
+		$sql = new Sql();
+
+		$sql->query("UPDATE usuarios SET description = :LOGIN, pass = :PASS WHERE user_id = :ID", array(
+			":LOGIN" => $this->getDescription(),
+			":PASS" => $this->getPass(),
+			":ID" => $this->getUser_id()
+		));
+	}
+
 
 }
 
